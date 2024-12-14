@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Markdown Renderer</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+			}
+			textarea {
+				width: 100%;
+				height: 150px;
+				margin-bottom: 10px;
+				font-size: 16px;
+			}
+			.preview {
+				border: 1px solid #ddd;
+				padding: 10px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Markdown Renderer</h1>
+		<textarea
+			id="markdownInput"
+			placeholder="Write your Markdown here..."
+		></textarea>
+		<button onclick="renderMarkdown()">Render Markdown</button>
+		<div class="preview" id="htmlOutput"></div>
+
+		<!-- Include Marked.js with ES Module -->
+		<script type="module">
+			import { marked } from "https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.min.js";
+
+			function renderMarkdown() {
+				const markdownInput = document.getElementById("markdownInput").value;
+				const htmlOutput = marked(markdownInput); // This should work with the ES Module version
+				document.getElementById("htmlOutput").innerHTML = htmlOutput;
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Video Chat Interface</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			/* Global Styles */
+			body {
+				font-family: "Arial", sans-serif;
+				background-color: #f8f9fa;
+				margin: 0;
+				padding: 0;
+			}
+
+			/* Purple-White Theme */
+			.bg-purple {
+				background-color: #6f42c1;
+				color: #ffffff;
+			}
+
+			.text-purple {
+				color: #6f42c1;
+			}
+
+			.btn-purple {
+				background-color: #6f42c1;
+				border-color: #6f42c1;
+				color: #ffffff;
+			}
+
+			.btn-purple:hover {
+				background-color: #572d91;
+				border-color: #572d91;
+			}
+
+			/* Layout */
+			.chat-container {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				background-color: #ffffff;
+				border-right: 2px solid #6f42c1;
+				border-radius: 0 10px 10px 0;
+			}
+
+			.video-preview {
+				height: 100%;
+				background-color: #ffffff;
+				border-radius: 10px 0 0 10px;
+				text-align: center;
+			}
+
+			/* Chat Styles */
+			.messages {
+				flex-grow: 1;
+				overflow-y: auto;
+				padding: 15px;
+				background-color: #f8f9fa;
+				border-bottom: 1px solid #dee2e6;
+			}
+
+			.message {
+				margin-bottom: 15px;
+				padding: 10px;
+				border-radius: 8px;
+				font-size: 14px;
+				max-width: 80%;
+			}
+
+			.message.user {
+				background-color: #e9d8f4;
+				margin-left: auto;
+				text-align: right;
+			}
+
+			.message.bot {
+				background-color: #dbe4f3;
+				text-align: left;
+			}
+
+			.input-container {
+				display: flex;
+				align-items: center;
+				padding: 10px;
+			}
+
+			.input-container input {
+				flex-grow: 1;
+				margin-right: 10px;
+				border: 2px solid #6f42c1;
+				border-radius: 20px;
+				padding: 10px;
+			}
+
+			/* Video Viewer */
+			.video-preview video {
+				width: 100%;
+				height: calc(100vh - 100px);
+				border: none;
+				border-radius: 10px 0 0 10px;
+			}
+
+			.upload-box {
+				background-color: #f8f9fa;
+				border: 2px dashed #6f42c1;
+				padding: 20px;
+				border-radius: 10px;
+				margin-bottom: 10px;
+			}
+
+			.upload-box:hover {
+				background-color: #f1f3f5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid vh-100">
+			<div class="row h-100">
+				<!-- Chat Section -->
+				<div class="col-md-6 chat-container">
+					<div class="p-3 bg-purple text-center">
+						<h4>Interactive Chat</h4>
+					</div>
+					<div class="messages" id="chatMessages">
+						<!-- Chat messages will go here -->
+					</div>
+					<div class="input-container">
+						<input
+							type="text"
+							id="userInput"
+							class="form-control"
+							placeholder="Ask your question..."
+						/>
+						<button class="btn btn-purple" id="sendMessage">Send</button>
+					</div>
+				</div>
+
+				<!-- Video Preview Section -->
+				<div class="col-md-6 video-preview">
+					<div class="p-3 bg-purple text-center">
+						<h4>Video Preview</h4>
+					</div>
+					<div class="upload-box" id="uploadBox">
+						<p class="text-purple mb-0">
+							Drag & Drop your video here or click to upload.
+						</p>
+						<input
+							type="file"
+							id="videoUpload"
+							name="videoFile"
+							accept="video/*"
+							class="d-none"
+						/>
+					</div>
+					<video id="videoPlayer" controls></video>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Video Player Logic
+			const videoUpload = document.getElementById("videoUpload");
+			const videoPlayer = document.getElementById("videoPlayer");
+			const uploadBox = document.getElementById("uploadBox");
+
+			uploadBox.addEventListener("click", () => {
+				videoUpload.click();
+			});
+
+			videoUpload.addEventListener("change", async (event) => {
+				const file = event.target.files[0];
+				if (file) {
+					// Display video in the player
+					const fileURL = URL.createObjectURL(file);
+					videoPlayer.src = fileURL;
+
+					// Submit video to the backend (optional, adjust endpoint as needed)
+					try {
+						const formData = new FormData();
+						formData.append("videoFile", file);
+
+						const response = await fetch("/uploadVideo", {
+							method: "POST",
+							body: formData,
+						});
+
+						if (response.ok) {
+							const result = await response.json();
+							alert(`File uploaded successfully: ${result.message}`);
+						} else {
+							const error = await response.text();
+							alert(`Error uploading file: ${error}`);
+						}
+					} catch (error) {
+						console.error("Error:", error);
+						alert("An error occurred while uploading the file.");
+					}
+				}
+			});
+
+			const chatMessages = document.getElementById("chatMessages");
+			const userInput = document.getElementById("userInput");
+			const sendMessage = document.getElementById("sendMessage");
+
+			// Function to add a message to the chat UI
+			function addMessage(content, type) {
+				const messageDiv = document.createElement("div");
+				messageDiv.className = `message ${type}`;
+				messageDiv.innerHTML = content;
+				chatMessages.appendChild(messageDiv);
+				chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
+			}
+
+			// Function to handle sending a query to the backend
+			async function getResponseFromBackend(query) {
+				try {
+					const response = await fetch("/getResponseVid", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ query }),
+					});
+
+					if (response.ok) {
+						const data = await response.json();
+						return data.response; // Assuming the response JSON has a 'response' field
+					} else {
+						console.error("Error:", response.statusText);
+						return "Sorry, something went wrong. Please try again later.";
+					}
+				} catch (error) {
+					console.error("Error:", error);
+					return "Sorry, something went wrong. Please try again later.";
+				}
+			}
+
+			// Event listener for the send button
+			sendMessage.addEventListener("click", async () => {
+				const message = userInput.value.trim();
+				if (message) {
+					addMessage(message, "user"); // Add user's message to the chat
+
+					// Get the response from the backend
+					const botResponse = await getResponseFromBackend(message);
+					addMessage(botResponse, "bot"); // Add bot's response to the chat
+
+					userInput.value = ""; // Clear the input field
+				}
+			});
+
+			// Event listener for pressing Enter key
+			userInput.addEventListener("keypress", (event) => {
+				if (event.key === "Enter") {
+					sendMessage.click();
+				}
+			});
+		</script>
+	</body>
+</html>

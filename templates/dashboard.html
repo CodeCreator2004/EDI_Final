@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dashboard</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../static/Style/dashboard.css" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+			rel="stylesheet"
+		/>
+
+		<style>
+			body {
+				background-color: #fafafa;
+				font-family: Arial, sans-serif;
+			}
+
+			.bg-purple {
+				background-color: #6a4c9c !important;
+			}
+
+			.navbar {
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.text-white {
+				color: white !important;
+			}
+
+			.welcome-title {
+				font-size: 2.5rem;
+				font-weight: 700;
+				color: #6a4c9c;
+			}
+
+			.card {
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+				border: none;
+				border-radius: 15px;
+			}
+
+			.card:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			}
+
+			.card-body h4 {
+				font-size: 1.5rem;
+				font-weight: 600;
+			}
+
+			.card-body p {
+				font-size: 1rem;
+				color: #aaa;
+			}
+
+			.card-body .btn-light {
+				background-color: #ffffff;
+				color: #6a4c9c;
+				font-weight: 500;
+				padding: 10px 20px;
+				border-radius: 25px;
+				border: none;
+				transition: background-color 0.3s;
+			}
+
+			.card-body .btn-light:hover {
+				background-color: #6a4c9c;
+				color: white;
+			}
+
+			.section-title {
+				font-size: 1.8rem;
+				font-weight: 700;
+				color: #6a4c9c;
+				margin-top: 40px;
+				text-align: center;
+			}
+
+			.container {
+				margin-top: 50px;
+			}
+
+			/* Hero Section */
+			.hero-section {
+				background-image: url("../static/Images/ai-loader-opt.gif");
+				background-size: cover;
+				background-position: center;
+				padding: 320px 0;
+				color: white;
+				text-align: center;
+				border-bottom-left-radius: 15px;
+				border-bottom-right-radius: 15px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+				margin-bottom: 40px;
+			}
+
+			.hero-section h2 {
+				font-size: 3rem;
+				font-weight: 700;
+				margin-bottom: 20px;
+			}
+
+			.hero-section p {
+				font-size: 1.2rem;
+				font-weight: 500;
+				margin-bottom: 30px;
+			}
+
+			.hero-section .btn-primary {
+				background-color: #6a4c9c;
+				border-radius: 25px;
+				padding: 12px 30px;
+				font-size: 1rem;
+				font-weight: 600;
+				transition: background-color 0.3s;
+			}
+
+			.hero-section .btn-primary:hover {
+				background-color: #5c3c8b;
+			}
+
+			/* Image hover effect */
+			.card-image:hover {
+				height: 15rem;
+			}
+
+			.card-image {
+				height: 10rem;
+				width: 100%;
+				transition: height 0.3s ease;
+			}
+
+			/* footer */
+			footer a {
+				transition: color 0.3s ease;
+			}
+
+			footer a:hover {
+				color: #ffd700; /* Highlight links with a golden color */
+			}
+
+			footer i {
+				font-size: 1.2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Navigation Bar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Multimodal Learning</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Upload</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">History</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Settings</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Help Center</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Hero Section -->
+		<div class="hero-section">
+			<h2>Welcome to Your Learning Dashboard</h2>
+			<p>
+				Explore and process diverse data to gain insights that enhance your
+				learning journey.
+			</p>
+			<a href="#cards" class="btn btn-primary">Explore the Dashboard</a>
+		</div>
+
+		<!-- Dashboard Section -->
+		<div class="container" id="cards">
+			<h2 class="welcome-title text-center">Your Data Processing Tools</h2>
+
+			<div class="container">
+				<div class="row">
+					<!-- Card 1 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/acrobat-svgrepo-com.svg"
+								class="card-img-top card-image"
+								alt="Website Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">PDF Document</h4>
+								<p class="card-text">
+									Upload and process website data to extract valuable insights
+									and improve
+								</p>
+								<a href="/pdfChat" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 2 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/video1.svg"
+								class="card-img-top card-image"
+								alt="Video Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">Video</h4>
+								<p class="card-text">
+									Upload and process video data to extract insights and improve
+									learning experiences.
+								</p>
+								<a href="#" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 3 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/audio-file-svgrepo-com.svg"
+								class="card-img-top card-image"
+								alt="Audio Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">Audio</h4>
+								<p class="card-text">
+									Upload and process audio data to extract insights and improve
+									learning experiences.
+								</p>
+								<a href="#" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 4 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/files-files-and-folders-svgrepo-com (4).svg"
+								class="card-img-top card-image"
+								alt="Website Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">Website</h4>
+								<p class="card-text">
+									Upload and process website data to extract valuable insights
+									and improve learning experiences.
+								</p>
+								<a href="#" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 5 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/files-files-and-folders-svgrepo-com (1).svg"
+								class="card-img-top card-image"
+								alt="Website Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">Website</h4>
+								<p class="card-text">
+									Upload and process website data to extract valuable insights
+									and improve learning experiences.
+								</p>
+								<a href="#" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Card 6 -->
+					<div class="col-md-4 mb-4">
+						<div class="card bg-purple text-white">
+							<img
+								src="../static/Images/files-files-and-folders-svgrepo-com (2).svg"
+								class="card-img-top card-image"
+								alt="Website Data"
+							/>
+							<div class="card-body text-center">
+								<h4 class="card-title">Website</h4>
+								<p class="card-text">
+									Upload and process website data to extract valuable insights
+									and improve learning experiences.
+								</p>
+								<a href="#" class="btn btn-light">Process</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer Section -->
+		<footer class="text-white pt-5 pb-4" style="background-color: #271542">
+			<div class="container">
+				<div class="row">
+					<!-- About Section -->
+					<div class="col-md-4">
+						<h5 class="text-uppercase mb-4 font-weight-bold">About Us</h5>
+						<p>
+							Multimodal Learning Dashboard helps users explore and process
+							diverse data formats, improving insights and enriching the
+							learning experience.
+						</p>
+					</div>
+
+					<!-- Links Section -->
+					<div class="col-md-4">
+						<h5 class="text-uppercase mb-4 font-weight-bold">Quick Links</h5>
+						<ul class="list-unstyled">
+							<li>
+								<a href="#" class="text-white text-decoration-none">Home</a>
+							</li>
+							<li>
+								<a href="#" class="text-white text-decoration-none"
+									>Upload Data</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-white text-decoration-none">History</a>
+							</li>
+							<li>
+								<a href="#" class="text-white text-decoration-none"
+									>Help Center</a
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Contact Section -->
+					<div class="col-md-4">
+						<h5 class="text-uppercase mb-4 font-weight-bold">Contact Us</h5>
+						<p>
+							<i class="bi bi-envelope-fill"></i> Email: support@multimodal.com
+						</p>
+						<p><i class="bi bi-telephone-fill"></i> Phone: +123 456 7890</p>
+						<div class="d-flex">
+							<a href="#" class="text-white me-3"
+								><i class="bi bi-facebook"></i
+							></a>
+							<a href="#" class="text-white me-3"
+								><i class="bi bi-twitter"></i
+							></a>
+							<a href="#" class="text-white me-3"
+								><i class="bi bi-instagram"></i
+							></a>
+							<a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+				<hr class="my-4" style="border-color: rgba(255, 255, 255, 0.2)" />
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p class="mb-0">
+							© 2024 Multimodal Learning Dashboard. All Rights Reserved.
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
